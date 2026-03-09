@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Arbitrage Engine — Find 3x+ Price Gaps Across Markets</title>
+<meta name="description" content="Discover 3x-5x price gaps between China wholesale (1688, Taobao) and Southeast Asia marketplaces (Shopee, Lazada). 26 categories, 9 trade routes, updated every 6 hours.">
+<meta name="keywords" content="cross-border arbitrage, China wholesale, Southeast Asia, price gaps, 1688, Shopee, Lazada, Taobao, import export, dropshipping, wholesale sourcing, arbitrage opportunities">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Global Arbitrage Engine — Find 3x+ Price Gaps Across Markets">
+<meta property="og:description" content="AI-powered engine scanning 26 categories across 9 trade routes every 6 hours. Find products with 3x-5x price multipliers between China and Southeast Asia.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://victorjzq.github.io/global-arbitrage-api/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Global Arbitrage Engine — Find 3x+ Price Gaps Across Markets">
+<meta name="twitter:description" content="Discover 3x-5x price gaps between China wholesale and Southeast Asia marketplaces. Updated every 6 hours.">
+<link rel="canonical" href="https://victorjzq.github.io/global-arbitrage-api/">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,sans-serif;color:#1a1a2e;line-height:1.6;background:#fafbfc}
+.hero{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:80px 20px 60px;text-align:center}
+.hero h1{font-size:2.6rem;max-width:800px;margin:0 auto 20px;line-height:1.2}
+.hero h1 span{color:#00d4aa;display:inline}
+.hero p{font-size:1.2rem;opacity:0.85;max-width:600px;margin:0 auto 40px}
+.cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+.btn-primary{background:#00d4aa;color:#0f0c29}
+.btn-secondary{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.btn-github{background:#333;color:#fff}
+.stats{display:flex;justify-content:center;gap:40px;margin-top:50px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:2rem;font-weight:700;color:#00d4aa}
+.stat-label{font-size:0.85rem;opacity:0.7;margin-top:2px}
+section{max-width:1000px;margin:0 auto;padding:60px 20px}
+h2{font-size:1.8rem;margin-bottom:12px;color:#1a1a2e}
+.section-subtitle{color:#666;margin-bottom:30px;font-size:1.05rem}
+.table-wrap{overflow-x:auto;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+table{width:100%;border-collapse:collapse;background:#fff}
+th{background:#1a1a2e;color:#fff;padding:14px 16px;text-align:left;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:14px 16px;border-bottom:1px solid #eee;font-size:0.95rem}
+tr:hover{background:#f0fdf9}
+.multiplier{font-weight:700;color:#0f0c29;background:#00d4aa22;padding:4px 10px;border-radius:20px;display:inline-block}
+.multiplier-hot{background:#ff634722;color:#d32f2f}
+.route{display:flex;align-items:center;gap:6px}
+.arrow{color:#00d4aa;font-weight:700}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.feature-card{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #eee}
+.feature-icon{font-size:2rem;margin-bottom:12px}
+.feature-card h3{font-size:1.1rem;margin-bottom:8px}
+.feature-card p{color:#555;font-size:0.92rem}
+.how-it-works{background:#f0fdf9}
+.how-it-works-inner{max-width:1000px;margin:0 auto;padding:60px 20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-top:10px}
+.step{text-align:center;padding:20px}
+.step-num{width:44px;height:44px;background:#00d4aa;color:#0f0c29;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;margin-bottom:14px}
+.step h3{margin-bottom:6px}
+.step p{color:#555;font-size:0.9rem}
+.final-cta{background:linear-gradient(135deg,#0f0c29,#302b63);color:#fff;text-align:center;padding:60px 20px}
+.final-cta h2{color:#fff;margin-bottom:12px}
+.final-cta p{opacity:0.8;margin-bottom:30px;max-width:500px;margin-left:auto;margin-right:auto}
+footer{text-align:center;padding:30px 20px;color:#999;font-size:0.85rem;background:#fafbfc}
+footer a{color:#666;text-decoration:none}
+@media(max-width:600px){
+.hero h1{font-size:1.7rem}
+.hero p{font-size:1rem}
+.stats{gap:20px}
+.stat-num{font-size:1.5rem}
+.btn{padding:12px 22px;font-size:0.9rem}
+h2{font-size:1.4rem}
+th,td{padding:10px 12px;font-size:0.82rem}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Global Arbitrage Engine",
+  "description": "AI-powered price gap scanner across China wholesale and Southeast Asia marketplaces",
+  "url": "https://victorjzq.github.io/global-arbitrage-api/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Global Arbitrage Engine — Find <span>3x+ Price Gaps</span> Across Markets</h1>
+  <p>AI scans China wholesale vs. Southeast Asia retail prices across 26 categories and 9 trade routes — updated every 6 hours.</p>
+  <div class="cta-group">
+    <a href="https://victorjia.substack.com" class="btn btn-primary" target="_blank" rel="noopener">Get Free Report</a>
+    <a href="https://t.me/victorjiabot" class="btn btn-secondary" target="_blank" rel="noopener">Join Telegram</a>
+    <a href="https://github.com/victorjzq/global-arbitrage-api" class="btn btn-github" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">26</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Trade Routes</div></div>
+    <div class="stat"><div class="stat-num">6h</div><div class="stat-label">Scan Interval</div></div>
+    <div class="stat"><div class="stat-num">3x–5x</div><div class="stat-label">Price Gaps Found</div></div>
+  </div>
+</div>
+
+<section>
+  <h2>Live Price Gap Data</h2>
+  <p class="section-subtitle">Real opportunities discovered by our engine — source prices from 1688/Taobao, destination prices from Shopee/Lazada.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Product</th><th>Route</th><th>Source Price</th><th>Dest. Price</th><th>Multiplier</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kids STEM Robot Kit</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Shopee MY</div></td>
+          <td>¥68 (~$9.50)</td>
+          <td>RM 138 (~$33)</td>
+          <td><span class="multiplier">3.5x</span></td>
+        </tr>
+        <tr>
+          <td>Pet GPS Tracker</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Shopee TH</div></td>
+          <td>¥45 (~$6.30)</td>
+          <td>฿740 (~$21.50)</td>
+          <td><span class="multiplier">3.4x</span></td>
+        </tr>
+        <tr>
+          <td>Silicone Kitchen Set (12pc)</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Lazada PH</div></td>
+          <td>¥25 (~$3.50)</td>
+          <td>₱580 (~$10.50)</td>
+          <td><span class="multiplier">3.0x</span></td>
+        </tr>
+        <tr>
+          <td>LED Camping Lantern</td>
+          <td><div class="route">Taobao <span class="arrow">→</span> Shopee VN</div></td>
+          <td>¥35 (~$4.90)</td>
+          <td>₫380k (~$15.80)</td>
+          <td><span class="multiplier">3.2x</span></td>
+        </tr>
+        <tr>
+          <td>Car Phone Mount (Magnetic)</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Shopee SG</div></td>
+          <td>¥12 (~$1.70)</td>
+          <td>S$12.90 (~$9.70)</td>
+          <td><span class="multiplier-hot multiplier">5.7x</span></td>
+        </tr>
+        <tr>
+          <td>Portable Blender</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Lazada MY</div></td>
+          <td>¥38 (~$5.30)</td>
+          <td>RM 69 (~$16.50)</td>
+          <td><span class="multiplier">3.1x</span></td>
+        </tr>
+        <tr>
+          <td>Nail Art Gel Kit</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Shopee ID</div></td>
+          <td>¥22 (~$3.10)</td>
+          <td>Rp 165k (~$10.80)</td>
+          <td><span class="multiplier">3.5x</span></td>
+        </tr>
+        <tr>
+          <td>Wireless Earbuds (TWS)</td>
+          <td><div class="route">1688 <span class="arrow">→</span> Shopee PH</div></td>
+          <td>¥28 (~$3.90)</td>
+          <td>₱650 (~$11.80)</td>
+          <td><span class="multiplier">3.0x</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="how-it-works">
+  <div class="how-it-works-inner">
+    <h2>How It Works</h2>
+    <p class="section-subtitle">From data to actionable opportunities in three steps.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Scan</h3>
+        <p>Our engine crawls 1688, Taobao, Shopee, and Lazada across 26 product categories every 6 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Compare</h3>
+        <p>AI normalizes prices, shipping costs, and fees across 9 China → SEA trade routes to calculate true margins.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Alert</h3>
+        <p>High-margin opportunities (3x+) are pushed to Telegram and compiled into weekly Substack reports.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>Why Global Arbitrage Engine?</h2>
+  <p class="section-subtitle">Built for cross-border sellers who want data, not guesswork.</p>
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>26 Product Categories</h3>
+      <p>Electronics, beauty, home, toys, pet supplies, auto accessories, and more — all monitored continuously.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌏</div>
+      <h3>9 Trade Routes</h3>
+      <p>China (1688, Taobao) to Malaysia, Thailand, Philippines, Vietnam, Singapore, Indonesia via Shopee & Lazada.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⏱️</div>
+      <h3>6-Hour Updates</h3>
+      <p>Prices change fast. Our engine re-scans 4x daily so you never miss a window.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>True Margin Calculation</h3>
+      <p>Factors in shipping, platform fees, and currency conversion — not just raw price ratios.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>Telegram Alerts</h3>
+      <p>Get notified instantly when a new 3x+ opportunity is detected. No login required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📰</div>
+      <h3>Weekly Deep Dives</h3>
+      <p>Curated Substack reports with top picks, trend analysis, and sourcing tips every week.</p>
+    </div>
+  </div>
+</section>
+
+<div class="final-cta">
+  <h2>Start Finding Arbitrage Opportunities</h2>
+  <p>Join thousands of cross-border sellers using data to find high-margin products.</p>
+  <div class="cta-group">
+    <a href="https://victorjia.substack.com" class="btn btn-primary" target="_blank" rel="noopener">Get Free Report</a>
+    <a href="https://t.me/victorjiabot" class="btn btn-secondary" target="_blank" rel="noopener">Join Telegram</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Global Arbitrage Engine. <a href="https://github.com/victorjzq/global-arbitrage-api">Open Source on GitHub</a>.</p>
+</footer>
+
+</body>
+</html>
