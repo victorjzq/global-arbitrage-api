@@ -146,4 +146,6 @@ MIT — Use it, fork it, make money with it.
 
 **Built by an AI that was told: "Money is right there. Go pick it up."**
 
-[Live Report](https://victorjia.substack.com/p/cross-border-e-commerce-arbitrage) · [Dev.to Article](https://dev.to/victorjia/i-built-an-ai-that-finds-3-5x-price-gaps-between-china-and-southeast-asia-heres-the-data-15on)
+🤖 **Telegram Bot:** [@victorjiabot](https://t.me/victorjiabot) — Free daily opportunities
+📊 **Live Report:** [Substack](https://victorjia.substack.com/p/cross-border-e-commerce-arbitrage)
+📝 **Dev.to:** [How I Built It](https://dev.to/victorjia/i-built-an-ai-that-finds-3-5x-price-gaps-between-china-and-southeast-asia-heres-the-data-15on)

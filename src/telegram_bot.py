@@ -153,16 +153,16 @@ def _top_opportunities(n: int = 3) -> str:
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     text = (
-        f"Welcome {user.first_name}! I'm the Global Arbitrage Bot.\n\n"
-        "I scan cross-market price differences and deliver actionable opportunities.\n\n"
-        "Commands:\n"
-        "/opportunities - Today's top arbitrage plays\n"
-        "/report - Get the latest full report\n"
-        "/subscribe - View subscription plans\n"
-        "/status - Your subscription status\n"
-        "/help - Show this message\n\n"
-        "Free tier: top 3 opportunities daily.\n"
-        "Pro ($29/mo): full analysis + real-time alerts."
+        f"Welcome {user.first_name}! 🌏\n\n"
+        "I scan 1688/Alibaba vs Shopee/TikTok Shop prices across 9 trade routes "
+        "and find 2-5x price gaps you can profit from.\n\n"
+        "📋 Commands:\n"
+        "/sample - Free preview (top 3 opportunities)\n"
+        "/opportunities - Today's arbitrage plays\n"
+        "/report - Full PDF report (Pro/Premium)\n"
+        "/subscribe - View plans & pricing\n"
+        "/status - Your subscription\n\n"
+        "🆓 Start with /sample to see today's best opportunities!"
     )
     await update.message.reply_text(text)
 
@@ -192,23 +192,64 @@ async def cmd_opportunities(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(msg)
 
 
+def _latest_pdf(lang: str = "EN") -> Optional[Path]:
+    """Find the most recent PDF report."""
+    pattern = str(REPORTS_DIR / f"*-arbitrage-report-{lang}.pdf")
+    files = sorted(glob.glob(pattern), reverse=True)
+    return Path(files[0]) if files else None
+
+
+async def cmd_sample(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Free sample — top 3 opportunities + CTA to subscribe."""
+    opps = _top_opportunities(3)
+    text = (
+        "🔥 *Free Sample — Top 3 Arbitrage Opportunities*\n\n"
+        f"{opps}\n\n"
+        "---\n"
+        "📊 Full report includes:\n"
+        "• 5 deep-dive opportunities with supplier links\n"
+        "• 10 trending products (China hot → SEA unsaturated)\n"
+        "• Platform fee comparison (Shopee vs TikTok Shop vs Lazada)\n"
+        "• Risk analysis + 4-week action plan\n\n"
+        "💰 Get the full PDF report: /subscribe ($9 one-time)\n"
+        "📈 Or get weekly updates: /subscribe ($29/mo Pro)"
+    )
+    if len(text) > 4096:
+        text = text[:4090] + "\n..."
+    await update.message.reply_text(text, parse_mode="Markdown")
+
+
 async def cmd_report(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     tier = _get_user_tier(user_id)
 
     if tier == "free":
         await update.message.reply_text(
-            "Full reports are available for Pro and Premium subscribers.\n"
-            "Use /subscribe to upgrade."
+            "📊 Full reports are for Pro/Premium subscribers.\n\n"
+            "Try /sample for a free preview!\n"
+            "Or /subscribe to get the full PDF report.\n\n"
+            "💡 One-time report: $9\n"
+            "📈 Pro (weekly updates): $29/mo"
         )
         return
 
-    report = _latest_report("EN")
+    # Try to send PDF first (better experience)
+    lang = "CN" if context.args and "cn" in " ".join(context.args).lower() else "EN"
+    pdf = _latest_pdf(lang)
+    if pdf and pdf.exists():
+        await update.message.reply_document(
+            document=open(pdf, "rb"),
+            filename=f"Global-Arbitrage-Report-{datetime.utcnow().strftime('%Y-%m-%d')}-{lang}.pdf",
+            caption=f"📊 Global Arbitrage Report ({lang}) — {datetime.utcnow().strftime('%B %Y')}",
+        )
+        return
+
+    # Fallback to markdown
+    report = _latest_report(lang)
     if not report:
         await update.message.reply_text("No report available yet.")
         return
 
-    # Send as document if too long
     if len(report) > 4096:
         report_path = REPORTS_DIR / "latest_report.md"
         report_path.write_text(report)
@@ -272,8 +313,8 @@ async def handle_subscribe_callback(update: Update, context: ContextTypes.DEFAUL
     elif data == "subscribe_crypto":
         await query.edit_message_text(
             "Crypto payment:\n\n"
-            "Send USDT (TRC-20) to:\n"
-            "`<YOUR_WALLET_ADDRESS>`\n\n"
+            "Send USDT (ERC-20/Base/Polygon) to:\n"
+            "`0x49Df862A9c9C8bDbE54e2Ae47283e59446817bdf`\n\n"
             "After payment, send your TX hash here.\n"
             "We'll activate within 1 hour.",
             parse_mode="Markdown",
@@ -344,7 +385,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if len(text) == 64 and all(c in "0123456789abcdefABCDEF" for c in text):
         await update.message.reply_text(
             "TX hash received. We'll verify and activate your subscription within 1 hour.\n"
-            "Contact @your_admin if not activated."
+            "Contact @victorjia if not activated."
         )
         # In production: queue for verification
         logger.info(f"Crypto TX from {update.effective_user.id}: {text}")
@@ -379,11 +420,18 @@ def main():
         print("  3. export TELEGRAM_BOT_TOKEN='your-token'")
         return
 
+    import asyncio
+    try:
+        asyncio.get_event_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
+
     app = Application.builder().token(BOT_TOKEN).build()
 
     # Commands
     app.add_handler(CommandHandler("start", cmd_start))
     app.add_handler(CommandHandler("help", cmd_help))
+    app.add_handler(CommandHandler("sample", cmd_sample))
     app.add_handler(CommandHandler("opportunities", cmd_opportunities))
     app.add_handler(CommandHandler("report", cmd_report))
     app.add_handler(CommandHandler("subscribe", cmd_subscribe))
