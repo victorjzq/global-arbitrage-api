@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+data/logs/
+data/daily/
+data/content/
+data/reports/
+data/daily_reports/
+data/*.json
+data/*.md
+data/*.jsonl
+data/api.pid
+.env

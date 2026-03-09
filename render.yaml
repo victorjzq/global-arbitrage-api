@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: global-arbitrage-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    # Render automatically sets PORT env var
