@@ -1,5 +1,7 @@
 # 全球信息差赚钱 (Global Information Arbitrage)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/victorjzq/global-arbitrage-api)
+
 > 把 AI token 转化成捕获信息差的工具，再把信息差转化成钱。
 
 ## 核心洞察
